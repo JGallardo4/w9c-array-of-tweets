@@ -32,6 +32,12 @@ var tweet_contents = [
 
 var username = "DYKAnimalFacts";
 
+function get_random_age(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 var tweets = [];
 
 tweet_contents.forEach((elem, index) => {
@@ -39,15 +45,30 @@ tweet_contents.forEach((elem, index) => {
         tweet: elem,
         username: username,
         created_at: `11-${index + 1}-2020`,
-        age: 26
+        age: get_random_age(12, 30)
     }
 });
 
 console.log("Here's a few animal facts from DYKAnimalFacts:", '\n');
 
-tweets.forEach((item) => {
-    console.log("Tweet: " + item.tweet);
-    console.log("Username: " + item.username);
-    console.log("Created at: " + item.created_at, '\n');
-    console.log("-------------", '\n');
-});
+function print_tweets(tweet_array) {
+    tweet_array.forEach((item) => {
+        console.log("Tweet: " + item.tweet);
+        console.log("Username: " + item.username);
+        console.log("Age: " + item.age);
+        console.log("Created at: " + item.created_at, '\n');
+        console.log("-------------", '\n');
+    });
+}
+
+// W9E
+
+function is_user_of_age(tweet_obj) {
+    return tweet_obj.age >= 18 ? true : false;
+}
+
+function filter_underage_users(tweets_array) {
+    return tweets_array.filter(is_user_of_age);
+}
+
+print_tweets(filter_underage_users(tweets));
